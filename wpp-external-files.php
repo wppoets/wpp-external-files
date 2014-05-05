@@ -3,20 +3,20 @@
  * Plugin Name: WPP Import External Files
  * Plugin URI: http://wppoets.com/plugins/external-files.html
  * Description: Allows content from external sources to be downloaded and attached to there respected Post/Page/Custom Content. This helps to prevent the user experience from getting ruined by dead images and external 404 errors.
- * Version: 0.1
+ * Version: 0.9.0
  * Author: WP Poets <plugins@wppoets.com>
  * Author URI: http://wppoets.com
  * License: GPLv2 (dual-licensed)
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
-/**  
- * Copyright (c) 2013, WP Poets and/or its affiliates <plugins@wppoets.com>
+/**
+ * Copyright (c) 2014, WP Poets and/or its affiliates <copyright@wppoets.com>
  * Portions of this distribution are copyrighted by:
- *   Copyright (c) 2013 Michael Stutz <michaeljstutz@gmail.com>
+ *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License, version 2, as 
+ * it under the terms of the GNU General Public License, version 2, as
  * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
@@ -31,11 +31,23 @@
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
  */
-if (!defined('ABSPATH')) die(); // We should not be loading this outside of wordpress
-if (!defined('WPP_EXTERNAL_FILES_VERSION_NUM')) define('WPP_CONTENT_ALIAS_VERSION_NUM', '0.1');
-if (!defined('WPP_EXTERNAL_FILES_PLUGIN_FILE')) define('WPP_CONTENT_ALIAS_PLUGIN_FILE', __FILE__);
-if (!defined('WPP_EXTERNAL_FILES_PLUGIN_PATH')) define('WPP_CONTENT_ALIAS_PLUGIN_PATH', dirname(__FILE__));
-if (!defined('WPP_EXTERNAL_FILES_FILTER_FILE')) define('WPP_CONTENT_ALIAS_FILTER_FILE', 'wpp-content-alias/wpp-content-alias.php');
+defined( 'ABSPATH' ) or die(); // We should not be loading this outside of wordpress
 
-if(!class_exists('WPP_ExternalFiles')) require_once(WPP_CONTENT_ALIAS_PLUGIN_PATH . '/core/WPP_ExternalFiles.php');
-WPP_ExternalFiles::init();
+defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '0.9.0' );
+//defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', WPP_SLIDESHOW_VERSION_NUM ); 
+defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', date('YmdHis') ); // Devolopment Only
+defined( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN' )       or define( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN', 'wpp-external-files' );
+defined( 'WPP_EXTERNAL_FILES_PLUGIN_FILE' )       or define( 'WPP_EXTERNAL_FILES_PLUGIN_FILE', __FILE__ );
+defined( 'WPP_EXTERNAL_FILES_PLUGIN_PATH' )       or define( 'WPP_EXTERNAL_FILES_PLUGIN_PATH', dirname(__FILE__ ) );
+defined( 'WPP_EXTERNAL_FILES_NAMESPACE_PATH' )    or define( 'WPP_EXTERNAL_FILES_NAMESPACE_PATH', WPP_EXTERNAL_FILES_PLUGIN_PATH . '/src/namespace' );
+defined( 'WPP_EXTERNAL_FILES_FUNCTION_PATH' )     or define( 'WPP_EXTERNAL_FILES_FUNCTION_PATH', WPP_EXTERNAL_FILES_PLUGIN_PATH . '/src/functions' );
+defined( 'WPP_EXTERNAL_FILES_FILTER_FILE' )       or define( 'WPP_EXTERNAL_FILES_FILTER_FILE', 'wpp-external-files/wpp-external-files.php' );
+
+
+//Include the required function files
+require_once( WPP_EXTERNAL_FILES_FUNCTION_PATH . DIRECTORY_SEPARATOR . 'wpp-common.php' );
+require_once( WPP_EXTERNAL_FILES_FUNCTION_PATH . DIRECTORY_SEPARATOR . 'wpp-external-files-autoloader.php' );
+require_once( WPP_EXTERNAL_FILES_FUNCTION_PATH . DIRECTORY_SEPARATOR . 'wpp-external-files-helper.php' );
+
+//Make the magic happen!
+\WPP\External_Files\Plugin::init();
