@@ -10,6 +10,10 @@ This helps to prevent the user experience from getting ruined by dead images and
 Versions
 --------
 
+### 0.9.2
+
+* Updated various files
+
 ### 0.9.1
 
 * Updated all the readme files
