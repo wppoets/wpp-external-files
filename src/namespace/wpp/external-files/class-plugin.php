@@ -30,6 +30,9 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 	/** Used to set the plugins ID */
 	const ID = 'wpp-external-files';
 
+	/** Used to set the wordpress option id */
+	const WP_OPTION_ID = 'wpp_external_files_options';
+
 	/** Used to set the plugins ID */
 	const CACHE_GROUP = self::ID;
 
@@ -56,6 +59,7 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 				"\WPP\External_Files\Admin" => array(
 					'cache_group' => static::CACHE_GROUP,
 					'metadata_key_external_url' => static::METADATA_KEY_EXTERNAL_URL,
+					'wp_option_id' => static::WP_OPTION_ID,
 				),
 			),
 			'meta_boxes' => array(

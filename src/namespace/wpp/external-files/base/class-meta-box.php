@@ -18,7 +18,7 @@
  */
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
- * @version 1.0.6
+ * @version 1.0.7
  */
 abstract class Meta_Box {
 
@@ -79,11 +79,29 @@ abstract class Meta_Box {
 	/** Used to enable the admin footer */
 	const ENABLE_ADMIN_FOOTER = FALSE;
 
-	/** Used to enable the admin footer */
+	/** Used to enable the action admin_menu */
+	const ENABLE_ADMIN_MENU = FALSE;
+
+	/** Used to enable the action admin_init */
+	const ENABLE_ADMIN_INIT = FALSE;
+
+	/** Used to enable the action save_post */
 	const ENABLE_SAVE_POST = FALSE;
 
+	/** Used to set if the class uses action_save_post */
+	const ENABLE_SAVE_POST_AUTOSAVE_CHECK = FALSE;
+
+	/** Used to set if the class uses action_save_post */
+	const ENABLE_SAVE_POST_REVISION_CHECK = FALSE;
+
+	/** Used to set if the class uses action_save_post */
+	const ENABLE_SAVE_POST_CHECK_CAPABILITIES_CHECK = FALSE;
+
 	/** Used to enable the admin footer */
-	const ENABLE_SINGLE_SAVE_POST = FALSE;
+	const ENABLE_SAVE_POST_SINGLE_RUN = FALSE;
+
+	/** Used to set if the class uses action_save_post */
+	const SAVE_POST_CHECK_CAPABILITIES = '';
 
 	/** Used to store the initialization of the class */
 	static private $_initialized = array();
@@ -292,19 +310,20 @@ abstract class Meta_Box {
 	 * @return void No return value
 	 */
 	static public function action_save_post( $post_id ) {
-		if ( ! current_user_can( 'edit_page', $post_id ) ) {  // Check user can edit
+		if ( static::ENABLE_SAVE_POST_AUTOSAVE_CHECK && defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )  {  // Check if is auto saving
 			return; 
 		}
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )  {  // Check if is auto saving
+		if ( static::ENABLE_SAVE_POST_CHECK_CAPABILITIES_CHECK ) {
+			foreach ( explode( ',', static::SAVE_POST_CHECK_CAPABILITIES ) as $capability ) {
+				if ( ! empty( $capability ) && ! current_user_can( $capability, $post_id ) ) {  // Check user can edit
+					return;
+				}
+			}
+		}
+		if ( static::ENABLE_SAVE_POST_REVISION_CHECK && wp_is_post_revision( $post_id ) ) {  // Check if is revision
 			return; 
 		}
-		if ( wp_is_post_revision( $post_id ) ) {  // Check if is revision
-			return; 
-		}
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, static::HTML_FORM_PREFIX . '_wpnonce', FILTER_SANITIZE_STRING ), static::NONCE_ACTION ) ) {  // Verify wpnonce
-			return; 
-		}
-		if ( static::ENABLE_SINGLE_SAVE_POST ) {
+		if ( static::ENABLE_SAVE_POST_SINGLE_RUN ) {
 			$static_instance = get_called_class();
 			if ( ! empty( self::$_save_post[ $static_instance ][ $post_id ] ) ) { 
 				return; 

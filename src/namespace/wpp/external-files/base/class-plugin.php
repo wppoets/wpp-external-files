@@ -18,14 +18,20 @@
  */
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
- * @version 1.0.3
+ * @version 1.0.5
  */
 abstract class Plugin {
 	
 	/** Used to set the plugins ID */
 	const ID = 'wpp-plugin';
 
-	/** Used to set the plugins ID */
+	/** Used to set the wordpress option id */
+	const WP_OPTION_ID = 'wpp-plugin-options';
+
+	/** Used to set the wordpress option autoload */
+	const ENABLE_WP_OPTION_AUTOLOAD = FALSE;
+
+	/** Used to set the cache group */
 	const CACHE_GROUP = 'wpp-plugin';
 	
 	/** Used to store the text domain */
@@ -43,11 +49,11 @@ abstract class Plugin {
 	/** Used to keep the init state of the class */
 	static private $_initialized = array();
 	
-	/** Used to store the plugin options */
+	/** Used to store the class options */
 	static private $_options = array();
 	
-	/** Used to store the plugin settings */
-	static private $_settings = array();
+	/** Used to store the wp options */
+	static private $_wp_options = array();
 	
 	/**
 	 * Initialization point for the static class
@@ -71,7 +77,7 @@ abstract class Plugin {
 				array( $static_instance, 'action_shortcode' )
 			);
 			if ( static::SHORTCODE_FILTER_ENABLE ) {
-				add_filter( "shortcode_atts_{$shortcode_tag}", array( $static_instance, 'filter_shortcode_atts' ), 10, 3 );
+				add_filter( "shortcode_atts_" . static::SHORTCODE_TAG, array( $static_instance, 'filter_shortcode_atts' ), 10, 3 );
 			}
 			unset( $shortcode_tag );
 		}
@@ -166,6 +172,33 @@ abstract class Plugin {
 	static public function get_options() {
 		$static_instance = get_called_class();
 		return self::$_options[ $static_instance ];
+	}
+
+	/**
+	 * Get method for the wp options
+	 *  
+	 * @return array Returns the option array
+	 */
+	static public function get_wp_options() {
+		$static_instance = get_called_class();
+		if ( ! isset( self::$_wp_options[ $static_instance ] ) ) {
+			self::$_wp_options[ $static_instance ] = get_option( static::WP_OPTION_ID );
+		} 
+		return self::$_wp_options[ $static_instance ];
+	}
+
+	/**
+	 * Get method for the wp options
+	 *  
+	 * @return array Returns the option array
+	 */
+	static public function set_wp_options( $values ) {
+		$static_instance = get_called_class();
+		$enable_autoload = static::ENABLE_WP_OPTION_AUTOLOAD ? 'yes' : 'no';
+		if ( ! add_option( static::WP_OPTION_ID, $values, NULL, $enable_autoload ) ) {
+			update_option( static::WP_OPTION_ID, $values );
+		}
+		self::$_wp_options[ $static_instance ] = get_option( static::WP_OPTION_ID );
 	}
 
 	/**
