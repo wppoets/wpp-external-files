@@ -10,6 +10,11 @@ This helps to prevent the user experience from getting ruined by dead images and
 Versions
 --------
 
-### 0.1
+### 0.9.1
 
-Current development version
+* Updated all the readme files
+* Removed unneeded folders and files
+
+### 0.9.0
+
+* First pre release version

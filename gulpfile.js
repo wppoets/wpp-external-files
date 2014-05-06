@@ -40,7 +40,7 @@ var dest_paths = {
 
 // Task - default
 gulp.task('default', ['clean'], function() {
-	gulp.start('styles', 'scripts');
+	//gulp.start('styles', 'scripts');
 });
 
 // Task - clean

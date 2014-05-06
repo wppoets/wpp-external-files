@@ -1,8 +1,8 @@
 === WPP Import External Files ===
 Contributors: wppoets, michaeljstutz
 Tags: import, external, media, files
-Requires at least: 3.5
-Tested up to: 3.5.1
+Requires at least: 3.9
+Tested up to: 3.9
 Stable tag: 1.0
 License: GPLv2 (dual-licensed)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ This helps to prevent the user experience from getting ruined by dead images and
 
 1. Place the 'wpp-external-files' folder in your '/wp-content/plugins/' directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Visit 'Settings > Import External Files' and adjust your configuration.
+1. Visit 'Settings > Import External Files' to enable importing and adjusting the configuration.
 
 == Frequently Asked Questions ==
 
@@ -33,9 +33,12 @@ Because we have not had the time to complete this? and or people have not asked.
 2. Metabox Screen
 
 == Changelog ==
-= 1.0 =
+= 1.0.0 =
 * First major release
-= 0.1 =
-* Pre release version
+= 0.9.1 =
+* Updated all the readme files
+* Removed unneeded folders and files
+= 0.9.0 =
+* First pre release version
 
 == Upgrade Notice ==
