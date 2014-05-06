@@ -126,7 +126,7 @@ class Admin extends \WPP\External_Files\Base\Admin {
 							}
 							$attachment_id = static::find_attachment_id_by_external_url( $url );
 							if ( empty( $attachment_id ) ) { // We cant find it so we need to add it
-								set_time_limit( static::PHP_SET_TIME_LIMIT );
+								defined('STDIN') or set_time_limit( static::PHP_SET_TIME_LIMIT ); //If we are not running from the command line change the time limit
 								$tmp = download_url( $url );
 								$file_array = array(
 									'name' => basename( $url_parts['path'] ),
