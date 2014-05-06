@@ -81,6 +81,9 @@ class Admin extends \WPP\External_Files\Base\Admin {
 		if ( empty( $wp_options['enabled'] ) ) {
 			return;
 		}
+		if ( empty( $wp_options['tag_regex'] ) ) {
+			return;
+		}
 		add_filter('sanitize_file_name', array( $static_instance, 'filter_sanitize_file_name_16330' ), 100000);
 		remove_action( 'save_post', array( $static_instance, 'action_save_post' ) );
     	$post = get_post( $post_id );
