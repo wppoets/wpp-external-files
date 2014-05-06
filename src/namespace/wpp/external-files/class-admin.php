@@ -127,13 +127,16 @@ class Admin extends \WPP\External_Files\Base\Admin {
 							$attachment_id = static::find_attachment_id_by_external_url( $url );
 							if ( empty( $attachment_id ) ) { // We cant find it so we need to add it
 								defined('STDIN') or set_time_limit( static::PHP_SET_TIME_LIMIT ); //If we are not running from the command line change the time limit
-								$tmp = download_url( $url );
+								$tmp_name = apply_filters( $options[ 'wp_filter_pre_tag' ] . 'tmp_name_download_url', NULL, $url );
+								if ( empty( $tmp_name ) ) {
+									$tmp_name = download_url( $url );
+								}
 								$file_array = array(
 									'name' => basename( $url_parts['path'] ),
-									'tmp_name' => $tmp,
+									'tmp_name' => $tmp_name,
 								);
 								// If error storing temporarily, unlink
-								if ( is_wp_error( $tmp ) ) {
+								if ( is_wp_error( $tmp_name ) ) {
 									@unlink( $file_array[ 'tmp_name' ] );
 									$file_array[ 'tmp_name' ] = '';
 								}

@@ -45,6 +45,9 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 	/** Used to store the metadata key prefix **/
 	const METADATA_KEY_EXTERNAL_URL = '_wpp_external_url';
 
+	/** Used to store the metadata key prefix **/
+	const WP_FILTER_PRE_TAG = 'wpp_external_files_';
+
 	/**
 	 * Initialization point for the static class
 	 * 
@@ -60,6 +63,7 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 					'cache_group' => static::CACHE_GROUP,
 					'metadata_key_external_url' => static::METADATA_KEY_EXTERNAL_URL,
 					'wp_option_id' => static::WP_OPTION_ID,
+					'wp_filter_pre_tag' => static::WP_FILTER_PRE_TAG,
 				),
 			),
 			'meta_boxes' => array(
