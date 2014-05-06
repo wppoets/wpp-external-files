@@ -33,8 +33,8 @@ Because we have not had the time to complete this? and or people have not asked.
 2. Metabox Screen
 
 == Changelog ==
-= 1.0.0 =
-* First major release
+= 0.9.2 =
+* Updated various files
 = 0.9.1 =
 * Updated all the readme files
 * Removed unneeded folders and files

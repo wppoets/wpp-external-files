@@ -33,7 +33,7 @@
  */
 defined( 'ABSPATH' ) or die(); // We should not be loading this outside of wordpress
 
-defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '0.9.0' );
+defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '0.9.2' );
 defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', WPP_EXTERNAL_FILES_VERSION_NUM ); 
 //defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', date('YmdHis') ); // Devolopment Only
 defined( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN' )       or define( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN', 'wpp-external-files' );
