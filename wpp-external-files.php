@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: WPP Import External Files
- * Plugin URI: http://wppoets.com/plugins/external-files.html
+ * Plugin URI: https://github.com/wppoets/wpp-external-files/wiki
  * Description: Allows content from external sources to be downloaded and attached to there respected Post/Page/Custom Content. This helps to prevent the user experience from getting ruined by dead images and external 404 errors.
  * Version: 0.9.0
- * Author: WP Poets <plugins@wppoets.com>
- * Author URI: http://wppoets.com
+ * Author: WP Poets <wppoets@gmail.com>
+ * Author URI: https://github.com/wppoets/
  * License: GPLv2 (dual-licensed)
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 /**
- * Copyright (c) 2014, WP Poets and/or its affiliates <copyright@wppoets.com>
+ * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
  * Portions of this distribution are copyrighted by:
  *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
@@ -34,7 +34,7 @@
 defined( 'ABSPATH' ) or die(); // We should not be loading this outside of wordpress
 
 defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '0.9.0' );
-//defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', WPP_SLIDESHOW_VERSION_NUM ); 
+//defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', WPP_EXTERNAL_FILES_VERSION_NUM ); 
 defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM') or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION_NUM', date('YmdHis') ); // Devolopment Only
 defined( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN' )       or define( 'WPP_EXTERNAL_FILES_TEXT_DOMAIN', 'wpp-external-files' );
 defined( 'WPP_EXTERNAL_FILES_PLUGIN_FILE' )       or define( 'WPP_EXTERNAL_FILES_PLUGIN_FILE', __FILE__ );
