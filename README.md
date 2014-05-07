@@ -10,6 +10,14 @@ This helps to prevent the user experience from getting ruined by dead images and
 Versions
 --------
 
+### 0.9.3 
+
+* Added support for the tmp_file hook to cancel the process by returning FALSE
+* Added empty uninstall.php ( will be used later )
+* Added misc defines for later use
+* Updated base meta-box class
+* Updated the gulpfile.js
+
 ### 0.9.2
 
 * Updated various files

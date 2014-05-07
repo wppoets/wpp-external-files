@@ -33,6 +33,11 @@ Because we have not had the time to complete this? and or people have not asked.
 2. Metabox Screen
 
 == Changelog ==
+= 0.9.3 =
+* Added support for the tmp_file hook to cancel the process by returning FALSE
+* Added empty uninstall.php for later use
+* Added misc defines for later use
+* Updated base meta-box class
 = 0.9.2 =
 * Updated various files
 = 0.9.1 =

@@ -18,7 +18,7 @@
  */
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
- * @version 1.0.7
+ * @version 1.0.9
  */
 abstract class Meta_Box {
 
@@ -29,7 +29,7 @@ abstract class Meta_Box {
 	const TITLE = 'WPP Meta Box';
 
 	/** Used to store the asset version */
-	const ASSET_VER = FALSE;
+	const ASSET_VERSION_NUM = FALSE;
 
 	/** Used to store the text domain */
 	const TEXT_DOMAIN = '';
@@ -199,7 +199,7 @@ abstract class Meta_Box {
 		$options = &self::$_options[ $static_instance ];
 		$post_types = array();
 		if ( ! empty( $options[ 'all_post_types' ] ) ) {
-			$post_types = get_post_types( 'public', 'names' );
+			$post_types = get_post_types( array( 'public' => TRUE ), 'names' );
 		} else { 
 			$post_types = $options[ 'include_post_types' ];
 		}
