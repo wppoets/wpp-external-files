@@ -64,6 +64,35 @@ class Admin extends \WPP\External_Files\Base\Admin {
 	 */
 	static public function init( $options = array() ) {
 		parent::init( $options );
+		$static_instance = get_called_class();
+		add_filter('posts_join', array( $static_instance, 'filter_posts_join' ) );
+		add_filter('posts_where', array( $static_instance, 'filter_posts_where' ) );
+	}
+
+	/**
+	 *
+	 */
+	static public function filter_posts_join( $join ) {
+		$options = static::get_options();
+		global $pagenow, $wpdb;
+		if ( is_admin() && $pagenow=='upload.php' && isset( $_GET['s'] ) ) {
+			$join .= 'LEFT JOIN ' . $wpdb->postmeta . ' ON ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id AND ' . 
+				$wpdb->postmeta . '.meta_key = "' . $options[ 'metadata_key_external_url' ] . '" ';
+		}
+		return $join;
+	}
+
+	/**
+	 *
+	 */
+	static public function filter_posts_where( $where ) {
+		global $pagenow, $wpdb;
+		if ( is_admin() && $pagenow=='upload.php' && isset( $_GET['s'] ) ) {
+			$where = preg_replace(
+				"/\(\s*" . $wpdb->posts . ".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+				"(" . $wpdb->posts . ".post_title LIKE $1) OR (" . $wpdb->postmeta . ".meta_value LIKE $1)", $where );
+		}
+		return $where;
 	}
 
 	/**
