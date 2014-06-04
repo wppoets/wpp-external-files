@@ -1,6 +1,8 @@
 <?php
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
+ * Portions of this distribution are copyrighted by:
+ *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,7 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is not used we should not be here
-defined( 'WPP_EXTERNAL_FILES_NAMESPACE_PATH' ) or die(); //Required down the road as well
+defined( 'WPP_EXTERNAL_FILES_CLASS_PATH' ) or die(); //Required down the road as well
 /**
  * Autoloader function for loading classes based on namespace
  *
@@ -27,14 +29,14 @@ defined( 'WPP_EXTERNAL_FILES_NAMESPACE_PATH' ) or die(); //Required down the roa
  * @author Michael Stutz <michaeljstutz@gmail.com>
  * @param string $class The class that needs to be autoloaded
  * @return void No return value
- * @version 1.0.2
  */
 if ( ! function_exists( 'wpp_external_files_spl_autoload' ) ) {
 	function wpp_external_files_spl_autoload( $class ) {
-		if ( substr( $class, 0, strlen("WPP\External_Files") ) !== "WPP\External_Files" ) return; //If we are not working with WPP\Carousel namespace request skip the rest of the checks
-		$folders = explode( '\\', str_replace( '_', '-', strtolower( $class ) ) ); // Lowercase class, replace _ with -, then explode base on namespace seperator
+		if ( substr( $class, 0, strlen("WPP\External_Files") ) !== "WPP\External_Files" ) return; //If we are not working with  namespace request skip the rest of the checks
+		$class_without_base_namespace = strtolower( str_replace( 'WPP\External_Files', '', $class ) ); // Remove the namespace from the base to find the location
+		$folders = explode( '\\', str_replace( '_', '-', $class_without_base_namespace ) ); // replace _ with -, then explode base on namespace seperator
 		$class_name = array_pop( $folders ); // The class name should be the last item in the array
-		$class_path = WPP_EXTERNAL_FILES_NAMESPACE_PATH; // Set the starting path to the carousel name space path
+		$class_path = WPP_EXTERNAL_FILES_CLASS_PATH; // Set the starting path to the carousel name space path
 		foreach ( $folders as $folder ) { // Loop through the folders to build the path
 			$class_path .= DIRECTORY_SEPARATOR . $folder; // Ammend the new folder
 		}

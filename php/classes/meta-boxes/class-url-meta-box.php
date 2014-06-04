@@ -1,6 +1,8 @@
 <?php namespace WPP\External_Files\Meta_Boxes;
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
+ * Portions of this distribution are copyrighted by:
+ *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,7 +22,7 @@ defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is no
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
  */
-class External_Files_Url_Meta_Box extends \WPP\External_Files\Base\Meta_Box {
+class Url_Meta_Box extends \WPP\External_Files\Base\Meta_Box {
  	
 	/** Used to set the meta-box ID */
 	const ID = 'wpp-external-files-url-meta-box';

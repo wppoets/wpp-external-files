@@ -1,8 +1,6 @@
-<?php
+<?php namespace WPP\External_Files\Base;
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
- * Portions of this distribution are copyrighted by:
- *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,24 +17,24 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 /**
- * Plugin uninstaller code
- * 
- * This file should only be run in wordpress and while uninstalling the plugin
- * 
  * @author Michael Stutz <michaeljstutz@gmail.com>
  */
-defined( 'ABSPATH' ) or die();
-defined( 'WP_UNINSTALL_PLUGIN' ) or die();
+abstract class Plugin extends Root_Instance {
 
-/**
- * Helper function for uninstalling the plugin
- * 
- * Want to go through the process of removing the options and any other items in the database
- * 
- * @return void No return value
- */
-function wpp_external_files_uninstall() {
+	/**
+	 * Initialization point for the configuration
+	 * 
+	 * @return void No return value
+	 */
+	static public function init_config() {
+		parent::init_config();
+		$config = static::get_config_instance();
+		$current_instance = static::current_instance();
+		$config::set_default( 'enable_admin_controllers', FALSE, $current_instance );
+		$config::set_default( 'enable_admin_pages', FALSE, $current_instance );
+		$config::set_default( 'enable_content_types', FALSE, $current_instance );
+		$config::set_default( 'enable_meta_boxes', FALSE, $current_instance );
+		$config::set_default( 'enable_shortcodes', FALSE, $current_instance );
+	}
 
 }
-
-wpp_external_files_uninstall();

@@ -1,6 +1,8 @@
 <?php
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
+ * Portions of this distribution are copyrighted by:
+ *   Copyright (c) 2014 Michael Stutz <michaeljstutz@gmail.com>
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,6 +19,3 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is not used we should not be here
-/**
- * @author Michael Stutz <michaeljstutz@gmail.com>
- */

@@ -1,4 +1,4 @@
-<?php
+<?php namespace WPP\External_Files;
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
  * Portions of this distribution are copyrighted by:
@@ -18,25 +18,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is not used we should not be here
 /**
- * Plugin uninstaller code
- * 
- * This file should only be run in wordpress and while uninstalling the plugin
- * 
  * @author Michael Stutz <michaeljstutz@gmail.com>
  */
-defined( 'ABSPATH' ) or die();
-defined( 'WP_UNINSTALL_PLUGIN' ) or die();
+class Plugin extends \WPP\External_Files\Base\Plugin {
 
-/**
- * Helper function for uninstalling the plugin
- * 
- * Want to go through the process of removing the options and any other items in the database
- * 
- * @return void No return value
- */
-function wpp_external_files_uninstall() {
+	/**
+	 * Initialization point for the configuration
+	 * 
+	 * @return void No return value
+	 */
+	static public function init_config() {
+		static::set_config_instance( Config::init() ); //Required before pretty much anything!
+		parent::init_config();
+		static::set_config( 'id', 'wpp-external-files' );
+		static::set_config( 'option_key', 'wpp_external_files_options' );
+		static::set_config( 'option_autoload', FALSE );
+		static::set_config( 'enable_admin_controllers', TRUE );
+		static::set_config( 'enable_admin_pages', TRUE );
+		static::set_config( 'enable_content_types', FALSE );
+		static::set_config( 'enable_meta_boxes', TRUE );
+		static::set_config( 'enable_shortcodes', FALSE );
+	}
 
 }
-
-wpp_external_files_uninstall();

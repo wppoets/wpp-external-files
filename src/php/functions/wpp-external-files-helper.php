@@ -18,25 +18,4 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-/**
- * Plugin uninstaller code
- * 
- * This file should only be run in wordpress and while uninstalling the plugin
- * 
- * @author Michael Stutz <michaeljstutz@gmail.com>
- */
-defined( 'ABSPATH' ) or die();
-defined( 'WP_UNINSTALL_PLUGIN' ) or die();
-
-/**
- * Helper function for uninstalling the plugin
- * 
- * Want to go through the process of removing the options and any other items in the database
- * 
- * @return void No return value
- */
-function wpp_external_files_uninstall() {
-
-}
-
-wpp_external_files_uninstall();
+defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is not used we should not be here
