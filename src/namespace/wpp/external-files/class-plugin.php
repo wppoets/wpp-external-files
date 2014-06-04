@@ -53,7 +53,7 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 	 * 
 	 * @return void No return value
 	 */
-	static public function init() {
+	static public function init( $options = array() ) {
 		parent::init( array(
 			'admin_controllers' => array( 
 				"\WPP\External_Files\Admin", 
