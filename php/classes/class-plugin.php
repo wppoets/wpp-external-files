@@ -35,11 +35,17 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 		static::set_config( 'id', 'wpp-external-files' );
 		static::set_config( 'option_key', 'wpp_external_files_options' );
 		static::set_config( 'option_autoload', FALSE );
-		static::set_config( 'enable_admin_controllers', TRUE );
+		static::set_config( 'enable_admin_sections', TRUE );
 		static::set_config( 'enable_admin_pages', TRUE );
 		static::set_config( 'enable_content_types', FALSE );
 		static::set_config( 'enable_meta_boxes', TRUE );
 		static::set_config( 'enable_shortcodes', FALSE );
+
+		$config = static::get_config_instance();
+		$config::add_admin_section('WPP\External_Files\Admin_Sections\Admin_Section');
+
+		//$data_dump = Config::_get_raw_dump();
+		//static::debug(__METHOD__, $data_dump[1] );
 	}
 
 }

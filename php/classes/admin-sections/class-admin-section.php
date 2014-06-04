@@ -1,4 +1,4 @@
-<?php namespace WPP\External_Files;
+<?php namespace WPP\External_Files\Admin_Sections;
 /**
  * Copyright (c) 2014, WP Poets and/or its affiliates <wppoets@gmail.com>
  * All rights reserved.
@@ -20,31 +20,7 @@ defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' ) or die(); //If the base plugin is no
 /**
  * @author Michael Stutz <michaeljstutz@gmail.com>
  */
-class Admin extends \WPP\External_Files\Base\Admin {
-
-	/** Used to enable the action admin_menu */
-	const ENABLE_ADMIN_MENU = TRUE;
-
-	/** Used to enable the action admin_init */
-	const ENABLE_ADMIN_INIT = TRUE;
-
-	/** Used to enable the action save_post */
-	const ENABLE_SAVE_POST = TRUE;
-
-	/** Used to set if the class uses action_save_post */
-	const ENABLE_SAVE_POST_AUTOSAVE_CHECK = TRUE;
-
-	/** Used to set if the class uses action_save_post */
-	const ENABLE_SAVE_POST_REVISION_CHECK = TRUE;
-
-	/** Used to set if the class uses action_save_post */
-	const ENABLE_SAVE_POST_CHECK_CAPABILITIES_CHECK = TRUE;
-
-	/** Used to enable the admin footer */
-	const ENABLE_SAVE_POST_SINGLE_RUN = FALSE;
-
-	/** Used to set if the class uses action_save_post */
-	const SAVE_POST_CHECK_CAPABILITIES = '';
+class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 
 	/** */
 	const PREG_EXTRACT_URL = '/(src|href)\s*=\s*[\"\']([^\"\']+)[\"\']/';
@@ -55,15 +31,22 @@ class Admin extends \WPP\External_Files\Base\Admin {
 	/** */
 	const PHP_SET_TIME_LIMIT = 60;
 
-	static private $_wp_options = array();
-
 	/**
-	 * Initialization point for the static class
+	 * Initialization point for the configuration
 	 * 
 	 * @return void No return value
 	 */
-	static public function init( $options = array() ) {
-		parent::init( $options );
+	static public function init_config() {
+		parent::init_config();
+		static::set_config( 'id', 'wpp-external-files-admin-section' );
+		static::set_config( 'enable_save_post', TRUE );
+		static::set_config( 'enable_save_post_nonce_check', TRUE );
+		static::set_config( 'enable_save_post_revision_check', TRUE );
+		static::set_config( 'enable_save_post_autosave_check', TRUE );
+		static::set_config( 'enable_save_post_check_capabilities_check', TRUE );
+		static::set_config( 'enable_save_post_single_run', FALSE );
+		static::set_config( 'save_post_check_capabilities', array() );
+		static::debug(__METHOD__, 'TESTING');
 	}
 
 	/**
@@ -75,17 +58,15 @@ class Admin extends \WPP\External_Files\Base\Admin {
 		if ( ! parent::action_save_post( $post_id ) ) {
 			return;
 		}
-		$static_instance = get_called_class();
-		$options = static::get_options();
-		$wp_options = get_option( $options[ 'wp_option_id' ] );
-		if ( empty( $wp_options['enabled'] ) ) {
+		$options = static::get_option();
+		if ( empty( $options['enabled'] ) ) {
 			return;
 		}
-		if ( empty( $wp_options['tag_regex'] ) ) {
+		if ( empty( $options['tag_regex'] ) ) {
 			return;
 		}
-		add_filter('sanitize_file_name', array( $static_instance, 'filter_sanitize_file_name_16330' ), 100000);
-		remove_action( 'save_post', array( $static_instance, 'action_save_post' ) );
+		add_filter('sanitize_file_name', array( static::current_instance(), 'filter_sanitize_file_name_16330' ), 100000);
+		remove_action( 'save_post', array( static::current_instance(), 'action_save_post' ) );
     	$post = get_post( $post_id );
 		$check_content = array(
 			'items' => array(
@@ -99,7 +80,7 @@ class Admin extends \WPP\External_Files\Base\Admin {
 		);
 		foreach ( $check_content['items'] as &$content ) {
 			$matched_elements = array();
-			if ( preg_match_all( $wp_options[ 'tag_regex' ], $content, $matched_elements ) ) {
+			if ( preg_match_all( $options[ 'tag_regex' ], $content, $matched_elements ) ) {
 				foreach ( $matched_elements[0] as $element ) {
 					$matched_url = array();
 					if ( preg_match( static::PREG_EXTRACT_URL, $element, $matched_url ) ) {
@@ -107,7 +88,7 @@ class Admin extends \WPP\External_Files\Base\Admin {
 						if ( empty( $url ) ) {
 							continue;
 						}
-						if ( empty( $wp_options[ 'import_extensions' ] ) ) {
+						if ( empty( $options[ 'import_extensions' ] ) ) {
 							continue;
 						}
 						$url_parts = parse_url( $url );
@@ -119,11 +100,11 @@ class Admin extends \WPP\External_Files\Base\Admin {
 							continue;
 						}
 						// Check to see if it is a valid file extentions
-						if ( ! static::custom_find_match( explode( PHP_EOL, $wp_options[ 'import_extensions' ] ), $path_parts['extension'] ) ) {
+						if ( ! static::custom_find_match( explode( PHP_EOL, $options[ 'import_extensions' ] ), $path_parts['extension'] ) ) {
 							continue; // If we didnt find a matching extention skip url
 						}
 						// Make sure it is not an excluded url
-						$excluded_urls = explode( PHP_EOL, $wp_options[ 'excluded_urls' ] );
+						$excluded_urls = explode( PHP_EOL, $options[ 'excluded_urls' ] );
 						$home_url_parts = parse_url( home_url() );
 						$excluded_urls[] = '//' . $home_url_parts[ 'host' ]; // Add the current hostname of the home_url()
 						if ( static::custom_find_match( $excluded_urls, $url ) ) {
@@ -180,8 +161,8 @@ class Admin extends \WPP\External_Files\Base\Admin {
 		if ( $changed ) {
 			wp_update_post( $post );
 		}
-		add_action( 'save_post', array( $static_instance, 'action_save_post' ) );
-		remove_filter('sanitize_file_name', array( $static_instance, 'filter_sanitize_file_name_16330' ) );
+		add_action( 'save_post', array( static::current_instance(), 'action_save_post' ) );
+		remove_filter('sanitize_file_name', array( static::current_instance(), 'filter_sanitize_file_name_16330' ) );
 	}
 
 	
