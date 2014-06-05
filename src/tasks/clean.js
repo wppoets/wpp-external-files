@@ -18,6 +18,7 @@ module.exports = function clean(grunt) {
 			'!php',
 			'!package.json',
 			'!README.md',
+			'!CONTRIBUTING.md',
 			'!src'
 		],
 		php: [
