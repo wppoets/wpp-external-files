@@ -172,10 +172,62 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 	 *
 	 * @return void No return value
 	 */
-	public static function filter_sanitize_file_name_16330( $file_name ) {
+	static public function filter_sanitize_file_name_16330( $file_name ) {
 		$decoded_file_name = urldecode( $file_name );
 		$new_file_name = preg_replace( '/[^a-zA-Z0-9_.\-]/','-', $decoded_file_name );
 		return $new_file_name;
+	}
+
+	/**
+	 *
+	 */
+	static private function custom_find_match( $needles, $haystack ) {
+		$found = FALSE;
+		foreach ( (array) $needles as $needle ) {
+			$needle = trim( $needle ); //Just in case
+			if ( empty( $needle ) ) {
+				continue;
+			}
+			if ( substr( $needle, 0, strlen( static::STRING_REGEX_TOKEN ) ) === static::STRING_REGEX_TOKEN ) {
+				$needle = str_replace( static::STRING_REGEX_TOKEN, '', $needle ); // Remove the token
+				if ( @preg_match( $needle, $haystack ) ) {
+					$found = TRUE;
+					break;
+				}
+			} else {
+				if ( strpos( $haystack, $needle ) !== FALSE ) {
+					$found = TRUE;
+					break;
+				}
+			}
+		}
+		return $found;
+	}
+
+	/**
+	 *
+	 */
+	static private function find_attachment_id_by_external_url( $external_url ) {
+		$options = static::get_options();
+		$find_posts = array(
+			'post_type'        => 'attachment',
+			'post_status'      => 'any',
+			'numberposts'      => '1',
+			'suppress_filters' => true,
+			'fields'           => 'ids',
+			'meta_query'       => array(
+				array(
+					'key'      => $options[ 'metadata_key_external_url' ],
+					'value'    => $external_url,
+					'compare'  => '=',
+				),
+			),
+		);
+		$wp_query = new \WP_Query( $find_posts );
+		if ( ! empty( $wp_query->posts[0] ) ) {
+			return $wp_query->posts[0];
+		}
+		return NULL;
 	}
 
 }

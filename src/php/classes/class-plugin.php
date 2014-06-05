@@ -42,11 +42,17 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 		static::set_config( 'enable_shortcodes', FALSE );
 
 		$config = static::get_config_instance();
-		
-		$admin_section_class = $config::add_admin_section('\WPP\External_Files\Admin_Sections\Admin_Section');
 
-		$url_meta_box = $config::add_meta_box('\WPP\External_Files\Meta_Boxes\Url_Meta_Box');
-		$config::config_meta_box($url_meta_box, 'metadata_key_external_url', '_wpp_external_url');
+		//Add the meta box and set configuration
+		$url_meta_box = $config::add_meta_box( '\WPP\External_Files\Meta_Boxes\Url_Meta_Box' );
+		$config::config_meta_box( $url_meta_box, 'metadata_key_external_url', '_wpp_external_url' );
+		
+		//Add admin section
+		$admin_section = $config::add_admin_section( '\WPP\External_Files\Admin_Sections\Admin_Section' );
+		
+		//Add the setting admin page and set configuration
+		$settings_admin_page = $config::add_admin_page( '\WPP\External_Files\Admin_Pages\Settings_Admin_Page' );
+		$config::config_meta_box( $settings_admin_page, 'option_key', static::get_config( 'option_key' ) );
 
 	}
 
