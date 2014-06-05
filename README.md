@@ -1,5 +1,5 @@
-WordPress Plugin: WPP Import External Files
-===========================================
+WPP Import External Files
+=========================
 
 Description
 -----------
