@@ -49,6 +49,7 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 		
 		//Add admin section
 		$admin_section = $config::add_admin_section( '\WPP\External_Files\Admin_Sections\Admin_Section' );
+		$config::config_meta_box( $admin_section, 'metadata_key_external_url', '_wpp_external_url' );
 		
 		//Add the setting admin page and set configuration
 		$settings_admin_page = $config::add_admin_page( '\WPP\External_Files\Admin_Pages\Settings_Admin_Page' );

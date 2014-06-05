@@ -208,7 +208,6 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 	 *
 	 */
 	static private function find_attachment_id_by_external_url( $external_url ) {
-		$options = static::get_options();
 		$find_posts = array(
 			'post_type'        => 'attachment',
 			'post_status'      => 'any',
@@ -217,7 +216,7 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 			'fields'           => 'ids',
 			'meta_query'       => array(
 				array(
-					'key'      => $options[ 'metadata_key_external_url' ],
+					'key'      => static::get_config( 'metadata_key_external_url' ),
 					'value'    => $external_url,
 					'compare'  => '=',
 				),
