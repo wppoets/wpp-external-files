@@ -135,7 +135,7 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 								@unlink( $file_array['tmp_name'] );
 								$attachment_id = NULL;
 							} else {
-								add_post_meta( $attachment_id, $options[ 'metadata_key_external_url' ], $url, TRUE ) or update_post_meta( $attachment_id, $options[ 'metadata_key_external_url' ], $url );
+								add_post_meta( $attachment_id, static::get_config( 'metadata_key_external_url' ), $url, TRUE ) or update_post_meta( $attachment_id, static::get_config( 'metadata_key_external_url' ), $url );
 							}
 						}
 						if ( empty ( $attachment_id ) ) {

@@ -1,8 +1,8 @@
 === WPP Import External Files ===
 Contributors: wppoets, michaeljstutz
 Tags: import, external, media, files
-Requires at least: 3.9
-Tested up to: 3.9
+Requires at least: 3.5
+Tested up to: 3.9.1
 Stable tag: 1.0
 License: GPLv2 (dual-licensed)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
