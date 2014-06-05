@@ -16,6 +16,11 @@ module.exports = function copy(grunt) {
 	// Return config
 	return {
 		root: {
+			options: {
+				process: function (content, srcpath) {
+					return grunt.template.process(content, {data: templateJson});
+				}
+			},
 			files: [{
 				expand: true,
 				cwd: 'src/root',

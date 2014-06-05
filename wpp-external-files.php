@@ -3,7 +3,7 @@
  * Plugin Name: WPP Import External Files
  * Plugin URI: https://github.com/wppoets/wpp-external-files/wiki
  * Description: Allows content from external sources to be downloaded and attached to there respected Post/Page/Custom Content. This helps to prevent the user experience from getting ruined by dead images and external 404 errors.
- * Version: <%= version %>
+ * Version: 0.9.3
  * Author: WP Poets <wppoets@gmail.com>
  * Author URI: https://github.com/wppoets/
  * License: GPLv2 (dual-licensed)
@@ -34,7 +34,7 @@
 defined( 'ABSPATH' ) or die(); // We should not be loading this outside of wordpress
 
 defined( 'WPP_EXTERNAL_FILES_DEBUG' )             or define( 'WPP_EXTERNAL_FILES_DEBUG', TRUE );
-defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '<%= version %>' );
+defined( 'WPP_EXTERNAL_FILES_VERSION_NUM' )       or define( 'WPP_EXTERNAL_FILES_VERSION_NUM', '0.9.3' );
 if ( WPP_EXTERNAL_FILES_DEBUG ) {
 	defined( 'WPP_EXTERNAL_FILES_ASSETS_VERSION')     or define( 'WPP_EXTERNAL_FILES_ASSETS_VERSION', date('YmdHis') ); // Devolopment Only
 	defined( 'WPP_EXTERNAL_FILES_EXTENTION_SCRIPTS' ) or define( 'WPP_EXTERNAL_FILES_EXTENTION_SCRIPTS', '.js' ); // Devolopment Only

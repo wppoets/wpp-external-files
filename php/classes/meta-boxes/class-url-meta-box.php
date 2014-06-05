@@ -46,7 +46,6 @@ class Url_Meta_Box extends \WPP\External_Files\Base\Meta_Box {
 			$post_types_includes[] = 'attachment';
 			static::set_config( 'post_types_includes', $post_types_includes );
 		}
-		static::debug(__METHOD__, 'test');
 	}
 
 	/**
