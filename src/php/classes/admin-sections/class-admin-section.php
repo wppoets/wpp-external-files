@@ -40,13 +40,12 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 		parent::init_config();
 		static::set_config( 'id', 'wpp-external-files-admin-section' );
 		static::set_config( 'enable_save_post', TRUE );
-		static::set_config( 'enable_save_post_nonce_check', TRUE );
+		static::set_config( 'enable_save_post_nonce_check', FALSE );
 		static::set_config( 'enable_save_post_revision_check', TRUE );
 		static::set_config( 'enable_save_post_autosave_check', TRUE );
 		static::set_config( 'enable_save_post_check_capabilities_check', TRUE );
-		static::set_config( 'enable_save_post_single_run', FALSE );
+		static::set_config( 'enable_save_post_single_run', TRUE );
 		static::set_config( 'save_post_check_capabilities', array() );
-		static::debug(__METHOD__, 'TESTING');
 	}
 
 	/**
@@ -130,7 +129,7 @@ class Admin_Section extends \WPP\External_Files\Base\Admin_Section {
 								@unlink( $file_array[ 'tmp_name' ] );
 								$file_array[ 'tmp_name' ] = '';
 							}
-							$attachment_id = media_handle_sideload( $file_array, $post_id, '' );
+							$attachment_id = media_handle_sideload( $file_array, $post_id );
 							// If error storing permanently, unlink
 							if ( is_wp_error( $attachment_id ) ) {
 								@unlink( $file_array['tmp_name'] );
