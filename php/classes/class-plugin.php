@@ -47,7 +47,7 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 		$url_meta_box = $config::add_meta_box( '\WPP\External_Files\Meta_Boxes\Url_Meta_Box' );
 		$config::config_meta_box( $url_meta_box, 'metadata_key_external_url', '_wpp_external_url' );
 		
-		//Add admin section
+		//Add admin section and set configuration
 		$admin_section = $config::add_admin_section( '\WPP\External_Files\Admin_Sections\Admin_Section' );
 		$config::config_meta_box( $admin_section, 'metadata_key_external_url', '_wpp_external_url' );
 		
