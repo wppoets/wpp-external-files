@@ -41,19 +41,20 @@ class Plugin extends \WPP\External_Files\Base\Plugin {
 		static::set_config( 'enable_meta_boxes', TRUE );
 		static::set_config( 'enable_shortcodes', FALSE );
 
-		$config = static::get_config_instance();
-
 		//Add the meta box and set configuration
-		$url_meta_box = $config::add_meta_box( '\WPP\External_Files\Meta_Boxes\Url_Meta_Box' );
-		$config::config_meta_box( $url_meta_box, 'metadata_key_external_url', '_wpp_external_url' );
-		
+		$url_meta_box = '\WPP\External_Files\Meta_Boxes\Url_Meta_Box';
+		static::append_config( 'meta_boxes', $url_meta_box );
+		static::set_config( 'metadata_key_external_url', FALSE, $url_meta_box );
+
 		//Add admin section and set configuration
-		$admin_section = $config::add_admin_section( '\WPP\External_Files\Admin_Sections\Admin_Section' );
-		$config::config_meta_box( $admin_section, 'metadata_key_external_url', '_wpp_external_url' );
-		
+		$admin_section = '\WPP\External_Files\Admin_Sections\Admin_Section';
+		static::append_config( 'admin_sections', $admin_section );
+		static::set_config( 'metadata_key_external_url', FALSE, $admin_section );
+
 		//Add the setting admin page and set configuration
-		$settings_admin_page = $config::add_admin_page( '\WPP\External_Files\Admin_Pages\Settings_Admin_Page' );
-		$config::config_meta_box( $settings_admin_page, 'option_key', static::get_config( 'option_key' ) );
+		$settings_admin_page = '\WPP\External_Files\Admin_Pages\Settings_Admin_Page';
+		static::append_config( 'admin_pages', $settings_admin_page );
+		static::set_config( 'option_key', static::get_config( 'option_key' ), $settings_admin_page );
 
 	}
 

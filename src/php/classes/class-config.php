@@ -34,17 +34,18 @@ class Config extends \WPP\External_Files\Base\Instance_Config {
 	 */
 	static public function init_config() {
 		parent::init_config();
-		$config = static::get_config_instance();
-		$config::set( 'text_domain', WPP_EXTERNAL_FILES_TEXT_DOMAIN );
-		$config::set( 'asset_version', WPP_EXTERNAL_FILES_ASSETS_VERSION );
-		$config::set( 'base_url', WPP_EXTERNAL_FILES_BASE_URL );
-		$config::set( 'base_scripts_url', WPP_EXTERNAL_FILES_BASE_URL_SCRIPTS );
-		$config::set( 'base_styles_url', WPP_EXTERNAL_FILES_BASE_URL_STYLES );
-		$config::set( 'extension_js', WPP_EXTERNAL_FILES_EXTENTION_SCRIPTS );
-		$config::set( 'extension_css', WPP_EXTERNAL_FILES_EXTENTION_STYLES );
-		$config::set( 'meta_key_prefix', '' );
-		$config::set( 'cache_group', WPP_EXTERNAL_FILES_CACHE_GROUP );
-		$config::set( 'id', 'wpp-external-files-config', $config ); // All instances require an id :)
+		//Local config
+		static::set_config( 'id', 'wpp-external-files-config' );
+		//Global config
+		static::set_config( 'text_domain', WPP_EXTERNAL_FILES_TEXT_DOMAIN, TRUE );
+		static::set_config( 'asset_version', WPP_EXTERNAL_FILES_ASSETS_VERSION, TRUE );
+		static::set_config( 'base_url', WPP_EXTERNAL_FILES_BASE_URL, TRUE );
+		static::set_config( 'base_scripts_url', WPP_EXTERNAL_FILES_BASE_URL_SCRIPTS, TRUE );
+		static::set_config( 'base_styles_url', WPP_EXTERNAL_FILES_BASE_URL_STYLES, TRUE );
+		static::set_config( 'extension_js', WPP_EXTERNAL_FILES_EXTENTION_SCRIPTS, TRUE );
+		static::set_config( 'extension_css', WPP_EXTERNAL_FILES_EXTENTION_STYLES, TRUE );
+		static::set_config( 'meta_key_prefix', '', TRUE );
+		static::set_config( 'cache_group', WPP_EXTERNAL_FILES_CACHE_GROUP, TRUE );
 	}
 
 }

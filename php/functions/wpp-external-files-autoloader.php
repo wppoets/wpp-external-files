@@ -32,8 +32,8 @@ defined( 'WPP_EXTERNAL_FILES_CLASS_PATH' ) or die(); //Required down the road as
  */
 if ( ! function_exists( 'wpp_external_files_spl_autoload' ) ) {
 	function wpp_external_files_spl_autoload( $class ) {
-		if ( substr( $class, 0, strlen("WPP\External_Files") ) !== "WPP\External_Files" ) return; //If we are not working with  namespace request skip the rest of the checks
-		$class_without_base_namespace = strtolower( str_replace( 'WPP\External_Files', '', $class ) ); // Remove the namespace from the base to find the location
+		if ( substr( $class, 0, strlen("WPP\\External_Files") ) !== "WPP\\External_Files" ) return; //If we are not working with  namespace request skip the rest of the checks
+		$class_without_base_namespace = strtolower( str_replace( 'WPP\\External_Files\\', '', $class ) ); // Remove the namespace from the base to find the location
 		$folders = explode( '\\', str_replace( '_', '-', $class_without_base_namespace ) ); // replace _ with -, then explode base on namespace seperator
 		$class_name = array_pop( $folders ); // The class name should be the last item in the array
 		$class_path = WPP_EXTERNAL_FILES_CLASS_PATH; // Set the starting path to the carousel name space path
